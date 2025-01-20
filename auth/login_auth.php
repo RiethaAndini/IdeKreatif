@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 require_once("../config.php");
 
@@ -6,42 +6,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $sql = "SELECT FROM users WHERE username='$username'";
+    $sql = "SELECT * FROM users WHERE username='$username'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Verifikasi password
+        // verifikasi password
         if (password_verify($password, $row["password"])) {
             $_SESSION["username"] = $username;
-            $_SESSION["name"] = $row["name"];
+            $_SESSION["name"] = $row["name"]; 
             $_SESSION["role"] = $row["role"];
             $_SESSION["user_id"] = $row["user_id"];
-            // Set notifikasi selamat datang
-            $_SESSION['notification'] = [
+            // set notifikasi selamat datang
+            $_SESSION['notifcation'] = [
                 'type' => 'primary',
                 'message' => 'Selamat Datang Kembali!'
             ];
-            // Redirect ke dashboard
-            header('Location:../dashboard.php');
+            // redirect  ke dashboard
+            header('Location: ../dashboard.php');
             exit();
         } else {
-            // Password salah
             $_SESSION['notification'] = [
-                'type' => 'danger',
-                'message' => 'Username atau Password salah'
+                'type' => 'denger',
+                'message' => 'Username atau password salah'
             ];
         }
         } else {
-            //usename tidak ditemukan 
+            //username tidak ditemukan
             $_SESSION['notification'] = [
-                'type' => 'danger',
-                'massage' => 'Username atau PAssword salah'
+                'type' => 'denger',
+                'message' => 'Username atau password salah'
             ];
         }
         // redirect kembali ke halaman login jika gagal
-        header('Location: login.php');
+        header ('Location: login.php');
         exit();
     }
     $conn->close();
-?>   
+?>
