@@ -1,3 +1,21 @@
+<?php
+  session_start();// inisialisasi session
+  // ambil notifikasi jika ada, kemudian hapus dari sesi
+  $notificatin = $_SESSION['notification'] ?? null;
+  if ($notificatin) {
+    unset($_SESSION['notification']);
+  }
+  /*
+  jika user sudah login sesuai dengan username atau role maka akan diarakan ke URL: dasboard.php
+  */
+  if (isset($_SESSION["username"]) || isset($_SESSION["role"])) {
+    $_SESSION['notification'] = [
+      'type' => 'danger',
+      'massage' => 'silahkan logout terlebih dahulu!'
+    ];
+    header('Location:  ../dashboard.php');
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
