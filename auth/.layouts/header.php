@@ -5,7 +5,7 @@
   if ($notificatin) {
     unset($_SESSION['notification']);
   }
-  /*
+ /*
   jika user sudah login sesuai dengan username atau role maka akan diarakan ke URL: dasboard.php
   */
   if (isset($_SESSION["username"]) || isset($_SESSION["role"])) {
